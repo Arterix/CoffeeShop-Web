@@ -256,8 +256,6 @@ Grup utama:
 - `GET /admin/*` — semua endpoint admin (menu, stok, diskon, analytics, staff)
 - `POST /webhook/midtrans` (public, signature-verified)
 
-Detail lengkap di [context/design(2).md](context/design(2).md) §3.
-
 ---
 
 ## Lisensi
