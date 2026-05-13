@@ -28,3 +28,5 @@ Thumbs.db
 /database/database.sqlite
 /database/*.sqlite-journal
 /storage/app/firebase-credentials.json
+/context/
+/.claude/

@@ -7,6 +7,8 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification as FcmNotification;
 use Throwable;
 
 /**
@@ -137,13 +139,11 @@ class FcmService
     private function dispatch(string $token, string $title, string $body, array $data): void
     {
         try {
-            // TODO: integrate kreait/laravel-firebase here.
-            Log::info('[FCM stub] would send', [
-                'token' => substr($token, 0, 12).'…',
-                'title' => $title,
-                'body' => $body,
-                'data' => $data,
-            ]);
+            $message = CloudMessage::withTarget('token', $token)
+                ->withNotification(FcmNotification::create($title, $body))
+                ->withData(array_map('strval', $data));
+
+            app('firebase.messaging')->send($message);
         } catch (Throwable $e) {
             Log::warning('FCM dispatch failed', ['error' => $e->getMessage()]);
         }
